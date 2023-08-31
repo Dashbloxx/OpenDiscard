@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -I/usr/local/include/cjson/
-LDFLAGS = -lcurl -lcjson
+LDFLAGS = -L/usr/local/lib -lcurl -lcjson
 
 SRCDIR = source
 SOURCES = $(wildcard $(SRCDIR)/*.c)

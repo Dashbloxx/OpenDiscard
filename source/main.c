@@ -6,6 +6,9 @@
 #include "main.h"
 #include "discord.h"
 
+int option0, option1;
+char token[1024];
+
 interface_mode_t interface_mode;
 
 int main(int argc, char * argv[])
@@ -17,7 +20,7 @@ int main(int argc, char * argv[])
         switch(interface_mode)
         {
         case INTERFACE_TUI:
-            int option0 = -1;
+            option0 = -1;
 
             printf("\033[?1049h");
             printf(",------.  ,--.                               ,--. \n|  .-.  \\ `--' ,---.  ,---. ,--,--.,--.--. ,-|  | \n|  |  \\  :,--.(  .-' | .--'' ,-.  ||  .--'' .-. | \n|  '--'  /|  |.-'  `)\\ `--.\\ '-'  ||  |   \\ `-' | \n`-------' `--'`----'  `---' `--`--'`--'    `---'  \n");
@@ -34,7 +37,6 @@ int main(int argc, char * argv[])
             switch(option0)
             {
             case 1:
-                int option1;
                 printf("\033[2J\x1b[1mHow would you like to check the token(s)?\x1b[0m\n");
                 printf("\x1b[1mEnter an option\x1b[0m: \n1. \x1b[4mCheck single token from this interface\x1b[0m.\n");
                 printf("</> ");
@@ -49,7 +51,6 @@ int main(int argc, char * argv[])
                 switch(option1)
                 {
                 case 1:
-                    char token[1024];
                     printf("\x1b[1mEnter the token: \x1b[0m\nThe token comes in a format similar to \x1b[4mMTAyNjI1Njg3NTMxNjA1MTk4OQ.Ga8xKS.qG4YMsX2eMe9U5_p0EkAdRAVBM-3x_K2ResB5U\x1b[0m, and can be either a bot token or a regular user token.\n");
                     printf("</> ");
 
