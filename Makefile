@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -I/usr/local/include/cjson/
+CFLAGS = -I/usr/local/include/cjson/ -pthread
 LDFLAGS = -L/usr/local/lib -lcurl -lcjson
 
 SRCDIR = source

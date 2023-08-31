@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
-#include <stdbool.h>
 
 #include "main.h"
 #include "discord.h"
 
-int option0, option1;
+int option0, option1, option2;
+char webhook[1024];
+char message[1024];
 char token[1024];
 
 interface_mode_t interface_mode;
@@ -20,8 +21,6 @@ int main(int argc, char * argv[])
         switch(interface_mode)
         {
         case INTERFACE_TUI:
-            option0 = -1;
-
             printf("\033[?1049h");
             printf(",------.  ,--.                               ,--. \n|  .-.  \\ `--' ,---.  ,---. ,--,--.,--.--. ,-|  | \n|  |  \\  :,--.(  .-' | .--'' ,-.  ||  .--'' .-. | \n|  '--'  /|  |.-'  `)\\ `--.\\ '-'  ||  |   \\ `-' | \n`-------' `--'`----'  `---' `--`--'`--'    `---'  \n");
             printf("\x1b[1mEnter an option\x1b[0m: \n1. \x1b[4mDiscord token checker\x1b[0m.\n2. \x1b[4mDiscord webhook spammer\x1b[0m.\n3. \x1b[4mExit\x1b[0m.\n");
@@ -92,6 +91,33 @@ int main(int argc, char * argv[])
                     break;
                 }
             case 2:
+                printf("\033[2J\x1b[1mWhat's the webhook's URL?\x1b[0m\n");
+                printf("</> ");
+
+                if (scanf("%s", &webhook) != 1)
+                {
+                    fprintf(stderr, "\x1b[31;1merror:\x1b[0m URL was expected\n");
+                    printf("\033[?1049l");
+                    return -1;
+                }
+
+                printf("\033[2J\x1b[1mWhat message should the webhook send?\x1b[0m\n");
+                printf("</> ");
+
+                if (scanf("%s", &message) != 1)
+                {
+                    fprintf(stderr, "\x1b[31;1merror:\x1b[0m String was expected\n");
+                    printf("\033[?1049l");
+                    return -1;
+                }
+
+                printf("\033[2J\x1b[1mCurrently spamming message.\x1b[0m\n\x1b[3mPress Ctrl + C to end this process\x1b[0m.\n");
+
+                while (1) 
+                {
+                    discord_send_webhook(&webhook, &message);
+                }
+
                 break;
             case 3:
                 printf("\033[?1049l");
